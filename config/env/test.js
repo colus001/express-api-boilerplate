@@ -4,11 +4,18 @@ module.exports = {
   facebook: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',
-    callbackURL: 'http://localhost:3000/auth/facebook/callback',
-    scope: [
+    callbackURL: 'http://localhost:6688/auth/facebook/callback',
+    profileFields: [
+      'id',
       'email',
-      'user_about_me',
-      'user_friends',
+      'gender',
+      'link',
+      'locale',
+      'name',
+      'timezone',
+      'updated_time',
+      'verified',
+      'friends',
     ],
   },
 
