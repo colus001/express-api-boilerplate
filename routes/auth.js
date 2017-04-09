@@ -3,12 +3,15 @@ const passport = require('passport')
 const { Router } = require('express')
 const mongoose = require('mongoose')
 
+const config = require('../config')
+
 const User = mongoose.model('User')
 
 const router = new Router()
 
 const secure = user => pick(user, ['name', 'shortId', 'email', 'alias'])
 
+// EMAIL
 router.post('/signup', (req, res, next) => {
   new User(req.body)
     .save()
@@ -18,6 +21,25 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
+    if (err || !user) {
+      next(new Error('UNAUTHORIZED'))
+      return
+    }
+
+    res.send(secure(user))
+  })(req, res, next)
+})
+
+// FACEBOOK
+const options = {
+  // authType: 'rerequest',
+  // scope: [config.facebook.scope],
+}
+
+router.get('/facebook', passport.authenticate('facebook', options))
+
+router.get('/facebook/callback', (req, res, next) => {
+  passport.authenticate('facebook', (err, user) => {
     if (err || !user) {
       next(new Error('UNAUTHORIZED'))
       return
