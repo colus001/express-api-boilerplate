@@ -1,4 +1,4 @@
-const { pick } = require('lodash')
+const { pick, omit } = require('lodash')
 const passport = require('passport')
 const { Router } = require('express')
 const mongoose = require('mongoose')
@@ -9,7 +9,10 @@ const User = mongoose.model('User')
 
 const router = new Router()
 
-const secureUser = user => Tokenizer.sign(pick(user, ['name', 'shortId', 'email', 'alias']))
+const secureUser = user => ({
+  user: pick(user, ['name', 'shortId', 'email', 'alias']),
+  token: Tokenizer.sign(omit(user)),
+})
 
 // EMAIL
 router.post('/signup', (req, res, next) => {
