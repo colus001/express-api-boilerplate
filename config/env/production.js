@@ -1,6 +1,8 @@
 module.exports = {
   db: 'mongodb://localhost/your_project_production',
 
+  jwtPrivateKey: 'RANDOM_KEY_FOR_JWT',
+
   facebook: {
     clientID: 'APP_ID',
     clientSecret: 'SECRET',
