@@ -2,7 +2,7 @@ const { Schema } = require('mongoose')
 const { assign } = require('lodash')
 const userPlugin = require('mongoose-user')
 
-const { defaultSchema, defaultOptions } = require('./common')
+const { defaultSchema, defaultOptions, meta } = require('./common')
 
 const schema = assign({}, defaultSchema, {
   name: {
@@ -11,7 +11,6 @@ const schema = assign({}, defaultSchema, {
   },
   alias: {
     type: String,
-    required: true,
     unique: true,
   },
   email: {
@@ -21,12 +20,19 @@ const schema = assign({}, defaultSchema, {
   },
   hashed_password: {
     type: String,
-    required: true,
   },
   salt: {
     type: String,
-    required: true,
   },
+  provider: {
+    name: {
+      type: String,
+    },
+    id: {
+      type: String,
+    },
+  },
+  meta,
 })
 
 const userSchema = new Schema(schema, defaultOptions)
