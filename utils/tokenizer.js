@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const config = require('../config')
 
 module.exports = {
-  sign(data, options = { expiresIn: '1d', algorithm: 'HS512' }) {
+  sign(data, options = { expiresIn: '30d', algorithm: 'HS512' }) {
     return jwt.sign(data, config.jwtPrivateKey, options)
   },
 

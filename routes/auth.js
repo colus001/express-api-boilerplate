@@ -20,7 +20,7 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user) => {
+  passport.authenticate('local', { session: false }, (err, user) => {
     if (err || !user) {
       next(new Error('UNAUTHORIZED'))
       return
@@ -31,10 +31,10 @@ router.post('/login', (req, res, next) => {
 })
 
 // FACEBOOK
-router.get('/facebook', passport.authenticate('facebook'))
+router.get('/facebook', passport.authenticate('facebook', { session: false }))
 
 router.get('/facebook/callback', (req, res, next) => {
-  passport.authenticate('facebook', (err, user) => {
+  passport.authenticate('facebook', { session: false }, (err, user) => {
     if (err || !user) {
       next(new Error('UNAUTHORIZED'))
       return
