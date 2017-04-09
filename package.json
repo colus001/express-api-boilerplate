@@ -1,0 +1,34 @@
+{
+	"name": "express-api-boilerplate",
+	"version": "0.1.0",
+	"main": "index.js",
+	"author": "Seokjun Kim",
+	"license": "MIT",
+	"scripts": {
+		"test": "node test.js",
+		"start": "nodemon index.js",
+		"serve": "node index.js"
+	},
+	"dependencies": {
+		"bluebird": "^3.5.0",
+		"body-parser": "^1.17.1",
+		"cookie-parser": "^1.4.3",
+		"cors": "^2.8.3",
+		"express": "^4.15.2",
+		"jsonwebtoken": "^7.3.0",
+		"lodash": "^4.17.4",
+		"moment": "^2.18.1",
+		"mongoose": "^4.9.3",
+		"mongoose-user": "^0.0.1",
+		"passport": "^0.3.2",
+		"passport-jwt": "^2.2.1",
+		"passport-local": "^1.0.0",
+		"shortid": "^2.2.8"
+	},
+	"devDependencies": {
+		"eslint": "^3.19.0",
+		"eslint-config-airbnb": "^14.1.0",
+		"eslint-plugin-import": "^2.2.0",
+		"nodemon": "^1.11.0"
+	}
+}
