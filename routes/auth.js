@@ -3,13 +3,13 @@ const passport = require('passport')
 const { Router } = require('express')
 const mongoose = require('mongoose')
 
-const config = require('../config')
+const Tokenizer = require('../utils/tokenizer')
 
 const User = mongoose.model('User')
 
 const router = new Router()
 
-const secure = user => pick(user, ['name', 'shortId', 'email', 'alias'])
+const secureUser = user => Tokenizer.sign(pick(user, ['name', 'shortId', 'email', 'alias']))
 
 // EMAIL
 router.post('/signup', (req, res, next) => {
@@ -26,17 +26,12 @@ router.post('/login', (req, res, next) => {
       return
     }
 
-    res.send(secure(user))
+    res.send(secureUser(user))
   })(req, res, next)
 })
 
 // FACEBOOK
-const options = {
-  // authType: 'rerequest',
-  // scope: [config.facebook.scope],
-}
-
-router.get('/facebook', passport.authenticate('facebook', options))
+router.get('/facebook', passport.authenticate('facebook'))
 
 router.get('/facebook/callback', (req, res, next) => {
   passport.authenticate('facebook', (err, user) => {
@@ -45,7 +40,7 @@ router.get('/facebook/callback', (req, res, next) => {
       return
     }
 
-    res.send(secure(user))
+    res.send(secureUser(user))
   })(req, res, next)
 })
 
